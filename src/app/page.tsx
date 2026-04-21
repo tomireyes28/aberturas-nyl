@@ -1,7 +1,15 @@
+import Hero from "@/components/sections/Hero";
+import Services from "@/components/sections/Services";
+import PromoBanner from "@/components/sections/PromoBanner";
+import Gallery from "@/components/sections/Gallery";
+
 export default function Home() {
   return (
     <main>
-      <h1>Aberturas N&L - En construcción</h1>
+      <Hero />
+      <Services />
+      <PromoBanner />
+      <Gallery />
     </main>
   );
 }
