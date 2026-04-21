@@ -1,6 +1,36 @@
-import { MapPin, Phone, Mail, Clock, CreditCard } from 'lucide-react';
+'use client';
+
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { contactSchema, type ContactFormData } from '@/lib/validations';
+import { sendEmailAction } from '@/actions/sendEmail';
+import { MapPin, Phone, Mail, Clock, CreditCard, Loader2 } from 'lucide-react';
 
 export default function Contact() {
+  const [serverState, setServerState] = useState<{ success?: string; error?: string } | null>(null);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    setServerState(null);
+    const result = await sendEmailAction(data);
+
+    if (result?.error) {
+      setServerState({ error: result.error });
+    } else {
+      setServerState({ success: '¡Consulta enviada! Nos comunicaremos a la brevedad.' });
+      reset();
+    }
+  };
+
   return (
     <section id="contacto" className="relative py-24 bg-gray-900 border-t border-gray-800 overflow-hidden">
       
@@ -74,7 +104,7 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Columna Derecha: Formulario con efecto Glassmorphism */}
+          {/* Columna Derecha: Formulario con efecto Glassmorphism y Lógica */}
           <div className="relative p-8 rounded-2xl bg-gray-800/40 backdrop-blur-xl border border-white/10 shadow-2xl h-fit">
             
             {/* Brillo superior simulando el borde de un vidrio */}
@@ -82,36 +112,94 @@ export default function Contact() {
             
             <h3 className="text-2xl font-bold text-white mb-6">Solicitá tu presupuesto</h3>
             
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-1">Nombre y Apellido</label>
-                  <input type="text" id="name" className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all" placeholder="Juan Pérez" />
+                  <input 
+                    type="text" 
+                    id="name" 
+                    {...register('name')}
+                    className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all" 
+                    placeholder="Juan Pérez" 
+                  />
+                  {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>}
                 </div>
                 <div>
                   <label htmlFor="city" className="block text-sm font-medium text-gray-400 mb-1">Ciudad / Localidad</label>
-                  <input type="text" id="city" className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all" placeholder="Adrogué" />
+                  <input 
+                    type="text" 
+                    id="city" 
+                    {...register('city')}
+                    className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all" 
+                    placeholder="Adrogué" 
+                  />
+                  {errors.city && <p className="text-red-400 text-xs mt-1">{errors.city.message}</p>}
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-400 mb-1">Teléfono</label>
-                  <input type="tel" id="phone" className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all" placeholder="11 1234 5678" />
+                  <input 
+                    type="tel" 
+                    id="phone" 
+                    {...register('phone')}
+                    className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all" 
+                    placeholder="11 1234 5678" 
+                  />
+                  {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone.message}</p>}
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-1">Email</label>
-                  <input type="email" id="email" className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all" placeholder="tu@email.com" />
+                  <input 
+                    type="email" 
+                    id="email" 
+                    {...register('email')}
+                    className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all" 
+                    placeholder="tu@email.com" 
+                  />
+                  {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>}
                 </div>
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-1">Mensaje (Medidas, tipo de trabajo, etc.)</label>
-                <textarea id="message" rows={4} className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all" placeholder="Hola, necesito un presupuesto para..."></textarea>
+                <textarea 
+                  id="message" 
+                  rows={4} 
+                  {...register('message')}
+                  className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all" 
+                  placeholder="Hola, necesito un presupuesto para..."
+                ></textarea>
+                {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>}
               </div>
 
-              <button type="button" className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-4 rounded-md shadow-[0_0_15px_rgba(234,88,12,0.4)] hover:shadow-[0_0_25px_rgba(234,88,12,0.6)] transition-all duration-300 mt-4">
-                ENVIAR CONSULTA
+              {/* Mensajes de éxito o error del servidor */}
+              {serverState?.success && (
+                <div className="p-3 bg-green-500/20 border border-green-500/50 rounded text-green-200 text-sm">
+                  {serverState.success}
+                </div>
+              )}
+              
+              {serverState?.error && (
+                <div className="p-3 bg-red-500/20 border border-red-500/50 rounded text-red-200 text-sm">
+                  {serverState.error}
+                </div>
+              )}
+
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-4 rounded-md shadow-[0_0_15px_rgba(234,88,12,0.4)] hover:shadow-[0_0_25px_rgba(234,88,12,0.6)] transition-all duration-300 mt-4 flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 mr-2 animate-spin" /> Procesando...
+                  </>
+                ) : (
+                  'ENVIAR CONSULTA'
+                )}
               </button>
             </form>
           </div>
