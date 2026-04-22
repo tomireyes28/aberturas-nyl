@@ -1,41 +1,84 @@
+'use client';
+
 import { servicesData } from '@/data/services';
+import { motion } from 'framer-motion';
+
+// Configuramos cómo aparece el contenedor principal
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15 // Esto hace que cada tarjeta tarde 0.15s más que la anterior en aparecer
+    }
+  }
+};
+
+// Configuramos cómo aparece cada tarjeta individualmente
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  show: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
 
 export default function Services() {
   return (
-    <section id="servicios" className="py-24 bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="servicios" className="py-24 bg-gray-900 relative overflow-hidden">
+      {/* Círculos de luz de fondo para resaltar el glassmorphism */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Encabezado de la sección */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
-            Soluciones Integrales en <span className="text-orange-500">Aberturas</span>
+        {/* Título animado al hacer scroll */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl font-extrabold text-white mb-4">
+            Soluciones en <span className="text-orange-500">Aberturas</span>
           </h2>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Fabricamos a medida y colocamos en obra. Calidad, diseño y durabilidad garantizada para cada etapa de tu proyecto.
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            Calidad industrial con diseño de vanguardia. Fabricamos a medida y colocamos en obra.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Grilla de Tarjetas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Grilla de Tarjetas con animación en cascada */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {servicesData.map((service) => {
             const IconComponent = service.icon;
             return (
-              <div 
-                key={service.id} 
-                className="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-orange-500/50 transition-colors duration-300 group"
+              <motion.div 
+                key={service.id}
+                variants={cardVariants}
+                className="relative group p-8 rounded-2xl bg-gray-800/40 backdrop-blur-md border border-white/5 hover:border-orange-500/50 transition-colors duration-500 shadow-xl"
               >
-                <div className="w-12 h-12 bg-gray-900 rounded-lg flex items-center justify-center mb-6 group-hover:bg-orange-600/20 transition-colors">
-                  <IconComponent className="w-6 h-6 text-orange-500" />
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                
+                {/* Icono con animación sutil al hacer hover en la tarjeta */}
+                <div className="w-14 h-14 bg-gray-900/80 rounded-xl flex items-center justify-center mb-6 group-hover:bg-orange-600/20 group-hover:scale-110 transition-all duration-300 border border-white/5">
+                  <IconComponent className="w-7 h-7 text-orange-500" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
-                <p className="text-gray-400 leading-relaxed">
+                
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">{service.title}</h3>
+                <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
                   {service.description}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );
