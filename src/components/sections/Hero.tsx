@@ -7,9 +7,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const images = [
-  '/gallery/portada1.jpg',
-  '/gallery/portada2.jpg',
-  '/gallery/portada3.jpg',
+  '/gallery/portada1.jpeg',
+  '/gallery/portada2.jpeg',
+  '/gallery/portada3.jpeg',
 ];
 
 const slideVariants = {
