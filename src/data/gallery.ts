@@ -28,7 +28,7 @@ export const galleryData: GalleryItem[] = [
   },
   {
     id: 'frente-flores',
-    src: 'https://images.unsplash.com/photo-1582282577239-bfa90ff5bdf1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    src: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     alt: 'Frente de local en Flores',
     category: 'Frentes',
   },
@@ -40,7 +40,7 @@ export const galleryData: GalleryItem[] = [
   },
   {
     id: 'duplex-canning',
-    src: 'https://images.unsplash.com/photo-1600566753086-00f18efc2291?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    src: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     alt: 'Duplex en Canning, Línea Modena',
     category: 'Obras',
   },
