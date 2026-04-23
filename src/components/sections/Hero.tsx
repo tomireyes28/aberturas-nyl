@@ -13,9 +13,20 @@ const images = [
 ];
 
 const slideVariants = {
-  enter: (direction: number) => ({ x: direction > 0 ? '100%' : '-100%', opacity: 0 }),
-  center: { zIndex: 1, x: 0, opacity: 1 },
-  exit: (direction: number) => ({ zIndex: 0, x: direction < 0 ? '100%' : '-100%', opacity: 0 }),
+  enter: (direction: number) => ({
+    x: direction > 0 ? '100%' : '-100%',
+    opacity: 0,
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => ({
+    zIndex: 0,
+    x: direction < 0 ? '100%' : '-100%',
+    opacity: 0,
+  }),
 };
 
 export default function Hero() {
@@ -28,13 +39,16 @@ export default function Hero() {
   };
 
   useEffect(() => {
-    const timer = setInterval(() => paginate(1), 6000); 
+    const timer = setInterval(() => paginate(1), 6000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <section id="inicio" className="relative h-[85vh] md:h-[90vh] w-full flex items-center justify-center overflow-hidden bg-gray-900">
+    /* min-h-screen permite que la sección crezca si el contenido lo requiere. 
+       py-20 asegura que el contenido no choque con los bordes en celulares. */
+    <section id="inicio" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-gray-900 py-20 md:py-0">
       
+      {/* Fondo con Imágenes */}
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={index}
@@ -46,26 +60,36 @@ export default function Hero() {
           transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
           className="absolute inset-0 z-0"
         >
-          <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('${images[index]}')` }} />
-          <div className="absolute inset-0 bg-gray-950/60 backdrop-blur-[2px]"></div>
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url('${images[index]}')` }}
+          />
+          <div className="absolute inset-0 bg-gray-950/70 backdrop-blur-[2px]"></div>
         </motion.div>
       </AnimatePresence>
 
-      <button onClick={() => paginate(-1)} className="absolute left-2 md:left-8 z-20 p-2 md:p-3 rounded-full bg-black/30 text-white/70 hover:text-white backdrop-blur-md hidden sm:block">
-        <ChevronLeft size={24} className="md:w-8 md:h-8" />
+      {/* Flechas de Navegación (Solo en pantallas grandes para no estorbar) */}
+      <button 
+        onClick={() => paginate(-1)} 
+        className="absolute left-4 z-30 p-3 rounded-full bg-black/20 text-white/70 hover:bg-black/50 transition-all hidden lg:block"
+      >
+        <ChevronLeft size={40} />
       </button>
-      <button onClick={() => paginate(1)} className="absolute right-2 md:right-8 z-20 p-2 md:p-3 rounded-full bg-black/30 text-white/70 hover:text-white backdrop-blur-md hidden sm:block">
-        <ChevronRight size={24} className="md:w-8 md:h-8" />
+      <button 
+        onClick={() => paginate(1)} 
+        className="absolute right-4 z-30 p-3 rounded-full bg-black/20 text-white/70 hover:bg-black/50 transition-all hidden lg:block"
+      >
+        <ChevronRight size={40} />
       </button>
 
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center">
+      {/* Contenido Central Relativo */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center text-center">
         
-        {/* LOGO ADAPTABLE */}
+        {/* Logo con ancho relativo máximo */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="mb-4 md:mb-6"
+          className="w-full max-w-[180px] sm:max-w-[240px] md:max-w-[320px] mb-8"
         >
           <Image 
             src="/logo.png" 
@@ -73,41 +97,55 @@ export default function Hero() {
             width={400} 
             height={200} 
             priority
-            className="w-40 sm:w-56 md:w-72 object-contain drop-shadow-[0_5px_10px_rgba(0,0,0,0.8)]"
+            className="w-full h-auto object-contain drop-shadow-2xl" 
           />
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-black text-white tracking-tighter mb-4 md:mb-6 leading-tight uppercase">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ delay: 0.2 }}
+          className="w-full"
+        >
+          <h1 className="text-[2.2rem] leading-[1.1] sm:text-6xl md:text-8xl font-black text-white tracking-tighter mb-6 uppercase">
             Fabricación y <br />
-            <span className="text-orange-500 drop-shadow-[0_0_15px_rgba(234,88,12,0.4)]">Colocación</span>
+            <span className="text-orange-500">Colocación</span>
           </h1>
           
-          <p className="text-sm sm:text-lg md:text-xl text-gray-200 mb-8 md:mb-10 max-w-2xl mx-auto font-medium leading-snug">
-            Transformamos tus espacios con aberturas a medida. Aportamos diseño, seguridad y aislación perfecta para tu hogar o negocio. 
+          <p className="text-base sm:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-medium">
+            Transformamos tus espacios con aberturas a medida. Especialistas en diseño, seguridad y aislación perfecta para tu proyecto.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-5 justify-center">
-            <a href="https://wa.me/5491159349228" className="bg-orange-600 hover:bg-orange-500 text-white px-6 md:px-10 py-3 md:py-5 rounded-full font-bold text-sm md:text-lg transition-all transform hover:scale-105 shadow-lg">
+          {/* Botones: en columna para móviles, fila para desktop */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full sm:w-auto">
+            <a 
+              href="https://wa.me/5491159349228" 
+              className="w-full sm:w-auto bg-orange-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-orange-500 transition-all shadow-lg"
+            >
               PRESUPUESTO SIN CARGO
             </a>
-            <Link href="#galeria" className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 md:px-10 py-3 md:py-5 rounded-full font-bold text-sm md:text-lg transition-all hover:bg-white/20">
+            <Link 
+              href="#galeria" 
+              className="w-full sm:w-auto bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white/20 transition-all"
+            >
               VER OBRAS
             </Link>
           </div>
         </motion.div>
       </div>
 
-      <div className="absolute bottom-4 md:bottom-8 left-0 right-0 z-20 flex justify-center gap-2 md:gap-3">
+      {/* Indicadores de diapositiva */}
+      <div className="absolute bottom-10 left-0 right-0 z-20 flex justify-center gap-3">
         {images.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setIndex(idx)}
-            className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${ index === idx ? 'bg-orange-500 scale-125' : 'bg-white/50' }`}
+            className={`transition-all duration-300 rounded-full ${
+              index === idx ? 'w-8 h-2 bg-orange-500' : 'w-2 h-2 bg-white/40'
+            }`}
           />
         ))}
       </div>
-
     </section>
   );
 }
