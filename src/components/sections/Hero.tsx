@@ -7,9 +7,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const images = [
-  '/gallery/portada1.jpeg',
-  '/gallery/portada2.jpeg',
-  '/gallery/portada3.jpeg',
+  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920',
+  'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1920',
+  'https://images.unsplash.com/photo-1620626011761-996317b8d101?q=80&w=1920'
 ];
 
 const slideVariants = {
@@ -63,24 +63,23 @@ export default function Hero() {
         <ChevronRight size={32} />
       </button>
 
-      {/* Todo el bloque sube usando -translate-y-12 para compensar la barra de navegación */}
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pointer-events-none -translate-y-12 md:-translate-y-16">
+      {/* Le sacamos el translate-y agresivo para que quede centrado natural */}
+      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pointer-events-none">
         
-        {/* LOGO GIGANTE EN EL CENTRO */}
-        {/* Usamos un margen inferior negativo (-mb-8) para "comer" el espacio transparente del logo y acercar el título */}
+        {/* LOGO GIGANTE EN EL CENTRO - Ahora con margen normal (mb-8) y tamaño ajustado */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="flex justify-center -mb-8 md:-mb-12"
+          className="flex justify-center mb-8"
         >
           <Image 
             src="/logo.png" 
             alt="Logo Gran Formato" 
-            width={500} 
-            height={250} 
+            width={400} 
+            height={200} 
             priority
-            className="w-56 sm:w-80 md:w-96 object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]"
+            className="w-48 sm:w-64 md:w-72 object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]"
           />
         </motion.div>
 
