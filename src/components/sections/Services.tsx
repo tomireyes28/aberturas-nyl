@@ -29,7 +29,7 @@ function FlipCard({ service }: { service: any }) {
 
   return (
     <div 
-      className="relative h-[300px] w-full perspective-1000 cursor-pointer"
+      className="relative h-75 w-full perspective-1000 cursor-pointer"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
       onClick={() => setIsFlipped(!isFlipped)}
