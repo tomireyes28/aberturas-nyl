@@ -86,7 +86,7 @@ export default function Hero() {
           </h1>
           
           <p className="text-[clamp(0.9rem,2vw,1.25rem)] text-gray-200 max-w-2xl mx-auto font-medium leading-relaxed px-4">
-            Transformamos tus espacios con aberturas a medida. Especialistas en diseño, seguridad y aislación perfecta para tu proyecto[cite: 1, 2].
+            Transformamos tus espacios con aberturas a medida. Especialistas en diseño, seguridad y aislación perfecta para tu proyecto.
           </p>
           
           {/* BOTONES: Stack vertical en móviles, horizontal en desktop */}
