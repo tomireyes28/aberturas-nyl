@@ -26,7 +26,7 @@ export default function WhatsAppButton() {
       </svg>
       
       <span className="absolute right-20 bg-gray-900 text-white px-4 py-2 rounded-xl text-sm font-bold opacity-0 group-hover:opacity-100 transition-all shadow-2xl pointer-events-none border border-white/10 translate-x-4 group-hover:translate-x-0">
-        ¿Presupuesto sin cargo?
+        Consulta tu presupuesto sin cargo
       </span>
     </motion.a>
   );
