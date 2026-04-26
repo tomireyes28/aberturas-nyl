@@ -8,8 +8,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const images = [
   '/gallery/portada1.jpeg',
-  '/gallery/portada2.jpeg',
-  '/gallery/portada3.jpeg',
+  '/gallery/portada2.jpg',
+  '/gallery/portada3.jpg',
 ];
 
 const slideVariants = {
@@ -80,7 +80,7 @@ export default function Hero() {
           className="flex flex-col items-center gap-4 md:gap-6"
         >
           {/* TÍTULO FLUIDO: Se ajusta perfectamente al monitor sin pisar otros elementos */}
-          <h1 className="text-[clamp(1.8rem,6vw,5.5rem)] leading-[1] font-black text-white tracking-tighter uppercase">
+          <h1 className="text-[clamp(1.8rem,6vw,5.5rem)] leading-none font-black text-white tracking-tighter uppercase">
             Fabricación y <br />
             <span className="text-orange-500">Colocación</span>
           </h1>

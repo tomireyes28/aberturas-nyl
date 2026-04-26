@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, CreditCard, Loader2, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Loader2, Send } from 'lucide-react';
 import { contactSchema, type ContactFormData } from '@/lib/validations';
 import { sendEmailAction } from '@/actions/sendEmail';
 
@@ -35,8 +35,8 @@ export default function Contact() {
   return (
     <section id="contacto" className="relative py-24 bg-gray-900 border-t border-gray-800 overflow-hidden">
       {/* Efectos de luz ambiental de fondo */}
-      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-600/5 rounded-full blur-[100px] -translate-x-1/2 pointer-events-none" />
+      <div className="absolute top-1/2 right-0 w-125 h-125 bg-orange-600/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-75 h-75 bg-blue-600/5 rounded-full blur-[100px] -translate-x-1/2 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
@@ -118,7 +118,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative p-8 md:p-10 rounded-3xl bg-gray-800/40 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
           >
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+            <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/20 to-transparent" />
             
             <h3 className="text-2xl font-bold text-white mb-8">Solicitá tu presupuesto</h3>
             

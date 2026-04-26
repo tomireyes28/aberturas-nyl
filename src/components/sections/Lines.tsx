@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { X, ShieldCheck, Thermometer, Volume2, Maximize2 } from 'lucide-react';
+import { X, ShieldCheck, Maximize2 } from 'lucide-react';
 
 const lineas = [
   {
@@ -87,7 +87,7 @@ export default function Lines() {
           </div>
 
           {/* Visualizador Principal */}
-          <div className="w-full lg:w-2/3 bg-gray-900 rounded-3xl p-8 lg:p-12 border border-gray-800 relative min-h-[500px] flex flex-col md:flex-row items-center gap-8 shadow-2xl">
+          <div className="w-full lg:w-2/3 bg-gray-900 rounded-3xl p-8 lg:p-12 border border-gray-800 relative min-h-125 flex flex-col md:flex-row items-center gap-8 shadow-2xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab.id}
@@ -102,7 +102,7 @@ export default function Lines() {
                   className="w-full md:w-1/2 relative group cursor-pointer"
                   onClick={() => setIsModalOpen(true)}
                 >
-                  <div className="aspect-[4/5] relative">
+                  <div className="aspect-4/5 relative">
                     {/* El drop-shadow es clave para que el PNG resalte sobre el fondo oscuro */}
                     <Image 
                       src={activeTab.foto}
@@ -129,7 +129,7 @@ export default function Lines() {
                   <div className="space-y-4 mb-8">
                     {activeTab.ventajas.map((ventaja) => (
                       <div key={ventaja} className="flex items-center gap-3 text-gray-200">
-                        <ShieldCheck className="text-orange-500 flex-shrink-0" size={20} />
+                        <ShieldCheck className="text-orange-500 shrink-0" size={20} />
                         <span className="font-medium text-sm">{ventaja}</span>
                       </div>
                     ))}
