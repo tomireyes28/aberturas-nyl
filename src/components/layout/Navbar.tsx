@@ -23,6 +23,7 @@ export default function Navbar() {
           {/* Enlaces Desktop */}
           <div className="hidden md:flex space-x-8">
             <Link href="#inicio" className="text-gray-300 hover:text-white transition-colors font-medium text-sm uppercase tracking-wider">Inicio</Link>
+            <Link href="#nosotros" className="text-gray-300 hover:text-white transition-colors font-medium text-sm uppercase tracking-wider">Nosotros</Link>
             <Link href="#servicios" className="text-gray-300 hover:text-white transition-colors font-medium text-sm uppercase tracking-wider">Qué Hacemos</Link>
             <Link href="#galeria" className="text-gray-300 hover:text-white transition-colors font-medium text-sm uppercase tracking-wider">Galería</Link>
             <Link href="#contacto" className="text-gray-300 hover:text-white transition-colors font-medium text-sm uppercase tracking-wider">Contacto</Link>

@@ -5,6 +5,7 @@ import Lines from '@/components/sections/Lines'; // <-- Nuevo
 import Services from '@/components/sections/Services';
 import Gallery from '@/components/sections/Gallery';
 import Contact from '@/components/sections/Contact';
+import PromoBanner from '@/components/sections/PromoBanner';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <About />
       <Services />
       <Lines />
+      <PromoBanner />
       <Gallery />
       <Contact />
     </main>

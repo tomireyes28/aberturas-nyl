@@ -1,6 +1,7 @@
 'use client';
 
-import { servicesData } from '@/data/services';
+// Importamos la interfaz 'ServiceItem' que debería estar definida en tu archivo de datos
+import { servicesData, type ServiceItem } from '@/data/services';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -23,7 +24,8 @@ export default function Services() {
   );
 }
 
-function FlipCard({ service }: { service: any }) {
+// Acá reemplazamos 'any' por la interfaz 'ServiceItem'
+function FlipCard({ service }: { service: ServiceItem }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const Icon = service.icon;
 
