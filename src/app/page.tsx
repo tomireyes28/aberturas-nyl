@@ -1,15 +1,18 @@
-import Hero from "@/components/sections/Hero";
-import Services from "@/components/sections/Services";
-import PromoBanner from "@/components/sections/PromoBanner";
-import Gallery from "@/components/sections/Gallery";
-import Contact from "@/components/sections/Contact";
+
+import Hero from '@/components/sections/Hero';
+import About from '@/components/sections/About'; // <-- Nuevo
+import Lines from '@/components/sections/Lines'; // <-- Nuevo
+import Services from '@/components/sections/Services';
+import Gallery from '@/components/sections/Gallery';
+import Contact from '@/components/sections/Contact';
 
 export default function Home() {
   return (
-    <main>
+    <main className="min-h-screen">
       <Hero />
+      <About />
       <Services />
-      <PromoBanner />
+      <Lines />
       <Gallery />
       <Contact />
     </main>

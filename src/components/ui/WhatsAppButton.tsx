@@ -11,7 +11,7 @@ export default function WhatsAppButton() {
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       whileHover={{ scale: 1.1 }}
-      className="fixed bottom-8 right-8 z-[100] bg-[#25D366] text-white p-4 rounded-full shadow-[0_10px_20px_rgba(37,211,102,0.3)] transition-all flex items-center justify-center group"
+      className="fixed bottom-8 right-8 z-100 bg-[#25D366] text-white p-4 rounded-full shadow-[0_10px_20px_rgba(37,211,102,0.3)] transition-all flex items-center justify-center group"
     >
       {/* Efecto de pulso radial */}
       <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20"></span>
