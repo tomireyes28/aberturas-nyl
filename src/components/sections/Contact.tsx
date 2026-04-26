@@ -59,7 +59,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-white text-lg">Nuestras Sucursales</h4>
-                  <p className="text-gray-400">Local 1: Figueroa 494, Don Orione[cite: 6, 9].</p>
+                  <p className="text-gray-400">Local 1: Figueroa 494, Don Orione.</p>
                   <p className="text-gray-400">Local 2: Sánchez Gardel 810, Don Orione.</p>
                   <p className="text-gray-400">Claypole, Almirante Brown (CP 1849).</p>
                 </div>
