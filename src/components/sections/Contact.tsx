@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Loader2, Send } from 'lucide-react';
 import { contactSchema, type ContactFormData } from '@/lib/validations';
-import { sendEmailAction } from '@/actions/sendEmail';
 
 export default function Contact() {
   const [serverState, setServerState] = useState<{ success?: string; error?: string } | null>(null);
@@ -20,15 +19,39 @@ export default function Contact() {
     resolver: zodResolver(contactSchema),
   });
 
+  // NUEVA FUNCIÓN ONSUBMIT ADAPTADA PARA WEB3FORMS (Página Estática)
   const onSubmit = async (data: ContactFormData) => {
     setServerState(null);
-    const result = await sendEmailAction(data);
 
-    if (result?.error) {
-      setServerState({ error: result.error });
-    } else {
-      setServerState({ success: '¡Consulta enviada! Nos comunicaremos a la brevedad.' });
-      reset();
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY, // Clave de acceso desde variables de entorno
+          // Mapeamos los datos para que en el mail lleguen con nombres lindos
+          Nombre: data.name,
+          Localidad: data.city,
+          Telefono: data.phone,
+          Email: data.email,
+          Mensaje: data.message,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setServerState({ success: '¡Consulta enviada! Nos comunicaremos a la brevedad.' });
+        reset(); // Limpia el formulario
+      } else {
+        setServerState({ error: 'Hubo un error al enviar. Por favor, intentá nuevamente.' });
+      }
+    } catch (error) {
+      console.error(error);
+      setServerState({ error: 'Ocurrió un error inesperado al conectar con el servidor.' });
     }
   };
 
@@ -81,7 +104,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-white text-lg">Teléfonos</h4>
-                  <p className="text-gray-400">11-5934-9228 [cite: 3, 9] | 11-3437-4195</p>
+                  <p className="text-gray-400">11-5934-9228 | 11-3437-4195</p>
                 </div>
               </div>
 
